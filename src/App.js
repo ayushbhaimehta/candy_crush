@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useEffect, useState } from 'react'
 
-function App() {
+
+const color = [
+  'blue',
+  'red',
+  'green',
+  'orange',
+  'black'
+]
+
+const App = () => {
+  const [currColor, setCurrColor] = useState([]);
+
+  const createBoard = () => {
+    const colorArray = [];
+    for (let i = 0; i < 64; i++) {
+      const random = Math.floor(Math.random() * color.length);
+      const cell = color[random];
+      colorArray.push(cell);
+    }
+    setCurrColor(colorArray);
+
+  }
+
+  useEffect(() => {
+    createBoard();
+  }, []);
+  console.log(currColor);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="game">
+        {currColor.map((color, index) => (
+          <img
+            key={index}
+            style={{ backgroundColor: color }}
+          // alt={color}
+          />
+        ))}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
